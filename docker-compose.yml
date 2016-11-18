@@ -1,0 +1,20 @@
+strongswan:
+    image: cpoole/strongswan:0.2.1
+    environment:
+        - RIGHT_HUB_ADDRESS=X.X.X.X
+        - RIGHT_HUB_SUBNET=X.X.X.X/16
+        - RIGHT_DEV_ADDRESS=X.X.X.X
+        - RIGHT_DEV_SUBNET=X.X.X.X/16
+        - RIGHT_PROD_ADDRESS=X.X.X.X
+        - RIGHT_PROD_SUBNET=X.X.X.X/16
+        - LEFT_EDGE=1.1.1.1
+        - LEFT_PRIVATE=172.16.10.100
+        - LEFT_SUBNET=172.16.0.0/16
+        - HUB_PSK=something
+        - DEV_PSK=something
+        - PROD_PSK=something
+    net: host
+    privileged: true
+    cap_add:
+        - ALL
+    restart: always
