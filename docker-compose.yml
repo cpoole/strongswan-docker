@@ -1,10 +1,16 @@
 strongswan:
-    image: cpoole/strongswan:0.2.1
+    image: connorpoole/strongswan:0.2.5
     environment:
         - RIGHT_HUB_ADDRESS=X.X.X.X
         - RIGHT_HUB_SUBNET=X.X.X.X/16
         - RIGHT_DEV_ADDRESS=X.X.X.X
         - RIGHT_DEV_SUBNET=X.X.X.X/16
+        - RIGHT_ACCEPTANCE_ADDRESS=X.X.X.X
+        - RIGHT_ACCEPTANCE_SUBNET=X.X.X.X/16
+        - RIGHT_UNION_ADDRESS=X.X.X.X
+        - RIGHT_UNION_SUBNET=X.X.X.X/16
+        - RIGHT_REHEARSAL_ADDRESS=X.X.X.X
+        - RIGHT_REHEARSAL_SUBNET=X.X.X.X/16
         - RIGHT_PROD_ADDRESS=X.X.X.X
         - RIGHT_PROD_SUBNET=X.X.X.X/16
         - LEFT_EDGE=1.1.1.1
@@ -13,6 +19,9 @@ strongswan:
         - HUB_PSK=something
         - DEV_PSK=something
         - PROD_PSK=something
+        - ACCEPTANCE_PSK=something
+        - UNION_PSK=something
+        - REHEARSAL_PSK=something
     net: host
     privileged: true
     cap_add:

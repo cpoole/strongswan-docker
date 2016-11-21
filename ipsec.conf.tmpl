@@ -1,0 +1,64 @@
+# ipsec.conf - strongSwan IPsec configuration file
+# Basic configuration
+
+config setup
+  charondebug="ike 4, knl 4, cfg 2, net 2"
+  
+# Add connections here.
+
+conn %default
+  ikelifetime=28800s
+  keylife=3600s
+  rekeymargin=3m
+  keyingtries=3
+  authby=psk
+  keyexchange=ikev1
+  mobike=no
+  compress=no
+  type=tunnel
+  ike=aes128-sha1-modp1024!
+  esp=aes128-sha1-modp1024!
+  dpdtimeout=30s
+  dpddelay=10s
+  dpdaction=restart
+  installpolicy=yes
+  left=${LEFT_PRIVATE}
+  leftsubnet=${LEFT_SUBNET}
+  leftid=${LEFT_EDGE}
+  leftfirewall=yes
+ 
+conn hub
+  right=${RIGHT_HUB_ADDRESS}
+  rightsubnet=${RIGHT_HUB_SUBNET}
+  rightid=${RIGHT_HUB_ADDRESS}
+  auto=start
+
+conn dev
+  right=${RIGHT_DEV_ADDRESS}
+  rightsubnet=${RIGHT_DEV_SUBNET}
+  rightid=${RIGHT_DEV_ADDRESS}
+  auto=start
+
+conn acceptance
+  right=${RIGHT_ACCEPTANCE_ADDRESS}
+  rightsubnet=${RIGHT_ACCEPTANCE_SUBNET}
+  rightid=${RIGHT_ACCEPTANCE_ADDRESS}
+  auto=start
+
+conn union
+  right=${RIGHT_UNION_ADDRESS}
+  rightsubnet=${RIGHT_UNION_SUBNET}
+  rightid=${RIGHT_UNION_ADDRESS}
+  auto=start
+
+conn rehearsal
+  right=${RIGHT_REHEARSAL_ADDRESS}
+  rightsubnet=${RIGHT_REHEARSAL_SUBNET}
+  rightid=${RIGHT_REHEARSAL_ADDRESS}
+  auto=start
+
+conn prod
+  right=${RIGHT_PROD_ADDRESS}
+  rightsubnet=${RIGHT_PROD_SUBNET}
+  rightid=${RIGHT_PROD_ADDRESS}
+  auto=start

@@ -8,22 +8,18 @@ RUN apt-get update && apt-get install -y \
   xl2tpd \
   module-init-tools \
   wget \
+  gettext \
   strongswan
 
 RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
 RUN chmod +x /usr/local/bin/dumb-init
 
 # Strongswan Configuration
-ADD ipsec.conf /etc/ipsec.conf
-ADD ipsec.secrets /etc/ipsec.secrets
+ADD ipsec.conf.tmpl /etc/ipsec.conf.tmpl
+ADD ipsec.secrets.tmpl /etc/ipsec.secrets.tmpl
 ADD strongswan.conf /etc/strongswan.conf
 
 ADD run.sh /run.sh
-
-# The password is later on replaced with a random string
-ENV VPN_USER user
-ENV VPN_PASSWORD password
-ENV VPN_PSK password
 
 VOLUME ["/etc/ipsec.d"]
 
