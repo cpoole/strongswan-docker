@@ -7,10 +7,14 @@ config setup
 # Add connections here.
 
 conn %default
+  #how long the keying channel (IKE SA) should last before renegotiation
   ikelifetime=28800s
-  keylife=3600s
-  rekeymargin=3m
-  keyingtries=3
+  #how long a set of encryption/authentication keys for packets should last from
+  #negotiation to expiry
+  lifetime=3600s
+  #how long before connection expiry or keying-channel expiry should attempts to negotiate a replacement begin
+  margintime=3m
+  keyingtries=%forever
   authby=psk
   keyexchange=ikev1
   mobike=no
@@ -21,44 +25,39 @@ conn %default
   dpdtimeout=30s
   dpddelay=10s
   dpdaction=restart
-  installpolicy=yes
+  closeaction=restart
   left=${LEFT_PRIVATE}
   leftsubnet=${LEFT_SUBNET}
   leftid=${LEFT_EDGE}
   leftfirewall=yes
- 
+  auto=start
+
 conn hub
   right=${RIGHT_HUB_ADDRESS}
   rightsubnet=${RIGHT_HUB_SUBNET}
   rightid=${RIGHT_HUB_ADDRESS}
-  auto=start
 
 conn dev
   right=${RIGHT_DEV_ADDRESS}
   rightsubnet=${RIGHT_DEV_SUBNET}
   rightid=${RIGHT_DEV_ADDRESS}
-  auto=start
 
 conn acceptance
   right=${RIGHT_ACCEPTANCE_ADDRESS}
   rightsubnet=${RIGHT_ACCEPTANCE_SUBNET}
   rightid=${RIGHT_ACCEPTANCE_ADDRESS}
-  auto=start
 
 conn union
   right=${RIGHT_UNION_ADDRESS}
   rightsubnet=${RIGHT_UNION_SUBNET}
   rightid=${RIGHT_UNION_ADDRESS}
-  auto=start
 
 conn rehearsal
   right=${RIGHT_REHEARSAL_ADDRESS}
   rightsubnet=${RIGHT_REHEARSAL_SUBNET}
   rightid=${RIGHT_REHEARSAL_ADDRESS}
-  auto=start
 
 conn prod
   right=${RIGHT_PROD_ADDRESS}
   rightsubnet=${RIGHT_PROD_SUBNET}
   rightid=${RIGHT_PROD_ADDRESS}
-  auto=start
